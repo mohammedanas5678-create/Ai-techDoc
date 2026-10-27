@@ -11,3 +11,5 @@ Ai-techDoc v1.4 Heal Bay branding
 - This update does not encrypt patient data or backups. PIN remains a demo screen lock only.
 - Upload ALL files including heal-bay-logo.png to the GitHub repository root.
 - Check the GitHub Pages deployment, then refresh the app.
+
+Version 1.5: Prescription preview now displays before printing. In Safari use Print / Save PDF, then AirPrint or Share to save PDF. Verify Heal Bay logo file is at repository root. Test only with fictional patients.
