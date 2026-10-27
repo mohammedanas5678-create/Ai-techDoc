@@ -262,7 +262,7 @@ function checkA5Fit(){
  status.style.color=fits?'#176345':'#a42f38';
  return fits;
 }
-$('printBtn').onclick=()=>{if(!checkA5Fit()){alert('This document exceeds one A5 page. Reduce the content before printing; nothing will be silently cut off.');return}window.print()};$('closePrint').onclick=()=>$('printOverlay').classList.add('hidden');
+$('printBtn').onclick=()=>{if($('printSheet').classList.contains('invoice-print')){window.print();return}if(!checkA5Fit()){alert('This document exceeds one A5 page. Reduce the content before printing; nothing will be silently cut off.');return}window.print()};$('closePrint').onclick=()=>{$('printOverlay').classList.add('hidden');$('printSheet').classList.remove('invoice-print')};
 if(!window.crypto?.subtle||!window.indexedDB){$('authError').textContent='This browser cannot run secure encrypted storage. Open the GitHub Pages HTTPS site in Safari.';$('unlockBtn').disabled=true}else initAuth().catch(e=>$('authError').textContent='Secure storage unavailable: '+e.message);
 clearVisit();if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script></body></html>
