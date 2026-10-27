@@ -1,1 +1,1 @@
-Ai-techDoc Pro Heal Bay Serial Beta 3. Automatically assigns unique numeric patient IDs starting at 000001, 000002, etc. Existing patient IDs are preserved. Counter is stored in the encrypted vault and encrypted backups/recovery snapshots. Existing legacy IDs may remain nonnumeric. This is still a beta, not approved for real patient data.
+Heal Bay A4 Beta 4. Clinic name centered at top. Compact A4 print layout with preview height validation and print disabled when too long. Check Safari A4 portrait settings. Security beta only; not yet approved for identifiable patient data.
