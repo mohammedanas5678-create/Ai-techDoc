@@ -22,77 +22,25 @@
 }
 @media(max-width:650px){#printSheet{width:134mm;max-width:none;padding:5mm 4mm}#printOverlay{overflow:auto}}
 </style>
-
 <style>
-/* HealBay Beta 6 — visual refresh (UI-only; preserve existing app behavior) */
-:root{
- --hb-ink:#173b3d; --hb-muted:#667f80; --hb-teal:#087f78; --hb-teal-deep:#075e59;
- --hb-mint:#e5f5f1; --hb-line:#dce9e5; --hb-paper:#fff; --hb-bg:#f4f8f7;
- --hb-shadow:0 8px 24px rgba(18,57,55,.055);
+.bill-table-wrap{overflow-x:auto}.bill-editor{min-width:650px}.bill-editor input,.bill-editor select{min-width:90px;padding:8px}.bill-editor th{font-size:12px}.bill-editor td{padding:5px}.bill-editor button{padding:7px 10px}
+#printSheet.invoice-print{width:190mm;max-width:none;min-height:277mm;padding:8mm;gap:7mm;font-size:11px}
+#printSheet.invoice-print .rxhead{grid-template-columns:52px minmax(0,1fr) 52px;padding-bottom:8mm}
+#printSheet.invoice-print .rxhead img{width:52px;height:52px}
+#printSheet.invoice-print .rxname{font-size:22px}
+#printSheet.invoice-print .patient{padding:8px}
+#printSheet.invoice-print td,#printSheet.invoice-print th{padding:6px}
+#printSheet.invoice-print .invoice-totals{margin-left:auto;width:70%;max-width:95mm;text-align:right;line-height:1.8}
+#printSheet.invoice-print .invoice-totals .grand{font-size:18px;font-weight:800;border-top:2px solid #0e766e;padding-top:5px}
+@page invoicepage{size:A4 portrait;margin:10mm}
+#printSheet.invoice-print{page:invoicepage}
+@media print{
+ @page{size:A5 portrait;margin:7mm}
+ @page invoicepage{size:A4 portrait;margin:10mm}
+ #printSheet.invoice-print{width:190mm!important;min-height:277mm!important;padding:8mm!important;margin:0!important}
+ #printSheet.invoice-print .rxsection,#printSheet.invoice-print table,#printSheet.invoice-print .invoice-totals,#printSheet.invoice-print footer{break-inside:avoid}
 }
-html{scroll-behavior:smooth}
-body{background:var(--hb-bg);color:var(--hb-ink);line-height:1.5}
-header{padding:16px clamp(16px,3vw,32px);background:linear-gradient(110deg,#075f5a,#0b8178);box-shadow:0 4px 18px rgba(7,95,90,.14)}
-header .brand{gap:14px}
-header img{height:50px;width:50px;border:1px solid rgba(255,255,255,.45);border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-header h1{font-size:clamp(18px,2vw,23px);letter-spacing:-.35px}
-header small{display:block;font-size:11px;letter-spacing:1.15px;font-weight:700}
-main{max-width:1240px;padding:clamp(14px,2.4vw,28px)}
-main>.warning{margin-bottom:18px;border:1px solid #f0dfb8;background:#fff8e8;color:#77591f;line-height:1.45}
-nav{position:sticky;top:8px;z-index:20;gap:6px;padding:7px;margin:0 0 20px;background:rgba(255,255,255,.91);border:1px solid var(--hb-line);border-radius:15px;box-shadow:var(--hb-shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-nav button{padding:10px 14px;border-radius:10px;background:transparent;color:#486968;font-size:13px;font-weight:700;transition:background .15s ease,color .15s ease,transform .15s ease}
-nav button:hover{background:#edf6f3;color:var(--hb-teal-deep)}
-nav button.active{background:var(--hb-teal);color:#fff;box-shadow:0 3px 9px rgba(8,127,120,.2)}
-.card{border:1px solid var(--hb-line);border-radius:18px;padding:clamp(16px,2.3vw,24px);margin-bottom:18px;box-shadow:var(--hb-shadow);background:var(--hb-paper)}
-h2{font-size:clamp(18px,2vw,21px);letter-spacing:-.3px;color:#183f40;margin:0 0 16px}
-h3{font-size:15px;font-weight:750;color:var(--hb-teal-deep);margin:22px 0 10px}
-p{margin-top:8px}
-.muted{color:var(--hb-muted);line-height:1.55}
-label{font-size:12px;letter-spacing:.15px;color:#557273;margin:10px 0 6px}
-input,textarea,select{border:1px solid #ccddda;border-radius:11px;padding:12px 13px;color:var(--hb-ink);background:#fff;transition:border-color .15s ease,box-shadow .15s ease}
-input::placeholder,textarea::placeholder{color:#9aacab}
-input:focus,textarea:focus,select:focus{outline:none;border-color:#55aaa2;box-shadow:0 0 0 3px rgba(8,127,120,.11)}
-input[readonly]{background:#f3f7f6;color:#577473}
-textarea{min-height:92px;resize:vertical}
-button{border-radius:11px;padding:11px 16px;background:var(--hb-teal);font-size:13px;letter-spacing:.1px;box-shadow:0 2px 5px rgba(8,127,120,.08);transition:filter .15s ease,transform .15s ease,box-shadow .15s ease}
-button:hover{filter:brightness(.97);box-shadow:0 4px 10px rgba(8,127,120,.14)}
-button:active{transform:translateY(1px)}
-button:focus-visible{outline:3px solid rgba(8,127,120,.3);outline-offset:2px}
-button.secondary{background:#e8f4f1;color:#096b64;box-shadow:none}
-button.danger{background:#fff0ef;color:#a42f38;box-shadow:none;border:1px solid #f1d2d1}
-.actions{gap:9px;margin-top:16px}
-.row{gap:10px}
-.entry{padding:14px 0;border-bottom:1px solid #e8efed}
-.entry:last-child{border-bottom:0}
-.entry button{padding:8px 12px}
-.grid{gap:14px}
-#dailyCounts .card{padding:16px;border-radius:15px;background:linear-gradient(145deg,#fff,#f8fcfb)}
-#dailyCounts .card strong{font-size:12px;color:#668181}
-#dailyCounts .card h2{font-size:25px;margin:7px 0 0;color:var(--hb-teal-deep)}
-#stats{font-weight:750;color:#2e6663}
-#auth{background:radial-gradient(ellipse at top left,#e1f3ef,#f3f8f7 65%)}
-#auth .card{padding:30px;border-radius:22px;border:1px solid #d9e9e4;box-shadow:0 18px 55px rgba(16,70,65,.11)}
-#auth img{display:block;width:104px;height:82px;margin:0 auto 14px}
-#auth h2{text-align:center;margin-bottom:8px}
-#auth .muted{text-align:center}
-#auth .warning{margin-top:18px;font-size:12px;line-height:1.55}
-@media(max-width:650px){
- main{padding:12px}
- header{padding:12px 14px}
- header img{height:42px;width:42px}
- header .brand{gap:10px}
- nav{top:5px;border-radius:13px;padding:5px;margin-bottom:14px}
- nav button{padding:9px 12px;font-size:12px}
- .card{padding:16px;border-radius:15px}
- .grid,.three{grid-template-columns:1fr}
- #dailyCounts .card h2{font-size:23px}
- .actions button{flex:1 1 auto}
- #auth .card{padding:22px}
-}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
-</style>
-
-</head><body>
+</style></head><body>
 <div id="auth"><div class="card"><img src="./heal-bay-logo.png" alt="Heal Bay"><h2>Ai-techDoc Pro — Secure Beta</h2><p id="authIntro" class="muted">Create a strong passphrase to encrypt your clinic records on this iPad.</p><label>Passphrase (minimum 12 characters)</label><input type="password" id="pass" autocomplete="off"><div id="confirmBlock"><label>Confirm passphrase</label><input type="password" id="passConfirm" autocomplete="off"></div><div class="actions"><button id="unlockBtn">Create encrypted vault</button><button type="button" class="secondary" id="recoverBtn">Recover from recovery kit</button></div><div id="recoveryPanel" class="hidden"><h3>Recover using your recovery kit</h3><p class="muted">Recovery restores the snapshot saved in the kit. Changes after its creation will not be recovered.</p><label>Recovery kit file</label><input id="recoveryFile" type="file" accept=".json,application/json"><label>Recovery key (from the kit)</label><input id="recoveryKey" autocomplete="off" spellcheck="false"><label>New passphrase (12+ characters)</label><input id="recoveryNewPass" type="password" autocomplete="off"><label>Confirm new passphrase</label><input id="recoveryConfirm" type="password" autocomplete="off"><div class="actions"><button id="doRecover" type="button">Recover and set new passphrase</button></div><p class="error" id="recoveryError"></p></div><p id="authError" class="error"></p><p class="warning">Recovery requires a previously exported recovery kit AND its separate recovery key. Without these, lost passphrases cannot be reset. Clearing Safari data can permanently erase the local vault.</p></div></div>
 <header><div class="brand"><img src="./heal-bay-logo.png" alt="Heal Bay"><div><h1>Ai-techDoc Pro</h1><small>HEAL BAY · Offline encrypted beta</small></div></div><button class="secondary" id="lockBtn">Lock</button></header>
 <main><div class="warning">Security beta: records are encrypted at rest, but this is not yet independently security-tested or approved for live identifiable patient data. Test with fictional records.</div><nav id="nav"><button data-tab="dashboard" class="active">Dashboard</button><button data-tab="patients">Patients</button><button data-tab="consult">Consultation</button><button data-tab="history">History</button><button data-tab="appointments">Appointments</button><button data-tab="billing">Billing & invoices</button><button data-tab="reports">Reports & analytics</button><button data-tab="presets">Saved medicines & labs</button><button data-tab="settings">Settings & encrypted backups</button></nav>
@@ -101,7 +49,7 @@ button.danger{background:#fff0ef;color:#a42f38;box-shadow:none;border:1px solid 
 <section id="consult" class="panel"><div class="card"><h2>New consultation</h2><label>Patient</label><select id="vPatient"></select><div class="grid three"><div><label>Date</label><input id="vDate" type="date"></div><div><label>BP</label><input id="vBp" placeholder="mmHg"></div><div><label>Pulse</label><input id="vPulse" placeholder="/min"></div><div><label>Temperature</label><input id="vTemp"></div><div><label>SpO₂</label><input id="vSpo2" placeholder="%"></div><div><label>Weight</label><input id="vWeight" placeholder="kg"></div></div><label>Chief complaints</label><textarea id="vComplaints"></textarea><label>Clinical findings</label><textarea id="vFindings"></textarea><label>Assessment / diagnosis</label><textarea id="vDiagnosis"></textarea><h3>Medication prescriptions</h3><div class="row"><select id="medSelect" style="flex:1"></select><button class="secondary" id="useMed">Add saved medication</button><button id="addMed">+ Blank medicine</button></div><div id="medRows"></div><h3>Laboratory investigations</h3><div class="row"><select id="labSelect" style="flex:1"></select><button class="secondary" id="useLab">Add saved lab</button><button id="addLab">+ Blank lab</button></div><div id="labRows"></div><label>Advice / follow-up</label><textarea id="vAdvice"></textarea><div class="actions"><button id="saveVisit">Save consultation</button><button class="secondary" id="clearVisit">Clear form</button></div></div></section>
 <section id="history" class="panel"><div class="card"><h2>Consultation history</h2><select id="historyPatient"></select><div id="visitList"></div></div></section>
 <section id="appointments" class="panel"><div class="card"><h2>Smart appointment scheduler</h2><p class="muted">Local appointment calendar with clash warnings and patient queue. No SMS or automatic reminders.</p><div class="grid three"><div><label>Patient</label><select id="apptPatient"></select></div><div><label>Date</label><input id="apptDate" type="date"></div><div><label>Time</label><input id="apptTime" type="time"></div><div><label>Duration (minutes)</label><input id="apptDuration" type="number" min="5" max="240" value="15"></div><div><label>Reason</label><input id="apptReason"></div></div><button id="saveAppointment">Book appointment</button><h3>Appointments</h3><label>Show date</label><input id="apptFilter" type="date"><div id="apptList"></div></div></section>
-<section id="billing" class="panel"><div class="card"><h2>Billing & invoices</h2><div class="grid three"><div><label>Patient</label><select id="billPatient"></select></div><div><label>Invoice date</label><input id="billDate" type="date"></div><div><label>Service / item</label><input id="billService" placeholder="Consultation fee"></div><div><label>Quantity</label><input id="billQty" type="number" min="1" step="1" value="1"></div><div><label>Unit price (₹)</label><input id="billRate" type="number" min="0" step="0.01"></div><div><label>Discount (₹)</label><input id="billDiscount" type="number" min="0" step="0.01" value="0"></div><div><label>Tax rate (%) — enter only if applicable</label><input id="billTax" type="number" min="0" max="100" step="0.01" value="0"></div><div><label>Payment status</label><select id="billStatus"><option>Unpaid</option><option>Paid</option></select></div><div><label>Payment method</label><select id="billMethod"><option>Cash</option><option>UPI</option><option>Card</option><option>Other</option></select></div></div><p class="muted">Verify local tax rules and invoice requirements. No automated tax determination or payment collection.</p><button id="saveInvoice">Save invoice</button><h3>Invoice register</h3><div id="invoiceList"></div></div></section>
+<section id="billing" class="panel"><div class="card"><h2>Billing & invoices</h2><div class="grid three"><div><label>Patient</label><select id="billPatient"></select></div><div><label>Invoice date</label><input id="billDate" type="date"></div><div><label>Payment status</label><select id="billStatus"><option>Unpaid</option><option>Paid</option></select></div><div><label>Payment method</label><select id="billMethod"><option>Cash</option><option>UPI</option><option>Card</option><option>Other</option></select></div></div><h3>Invoice line items</h3><p class="muted">Add consultation fee, procedure charges, lab charges and any other charges as separate rows.</p><div class="bill-table-wrap"><table class="bill-editor"><thead><tr><th>Charge category</th><th>Description</th><th>Qty</th><th>Rate (₹)</th><th>Amount (₹)</th><th></th></tr></thead><tbody id="billRows"></tbody></table></div><div class="actions"><button type="button" class="secondary" id="addBillRow">+ Add charge</button></div><div class="grid three"><div><label>Discount (₹)</label><input id="billDiscount" type="number" min="0" step="0.01" value="0"></div><div><label>Tax rate (%) — if applicable</label><input id="billTax" type="number" min="0" max="100" step="0.01" value="0"></div><div><label>Invoice total (₹)</label><input id="billTotalPreview" readonly value="₹0.00"></div></div><p class="muted">Verify local tax rules and invoice requirements. No automated tax determination or payment collection.</p><button id="saveInvoice">Save invoice</button><h3>Invoice register</h3><div id="invoiceList"></div></div></section>
 <section id="reports" class="panel"><div class="card"><h2>Reports & analytics</h2><div class="grid"><div><label>From date</label><input id="reportFrom" type="date"></div><div><label>To date</label><input id="reportTo" type="date"></div></div><div class="actions"><button id="runReports">Refresh report</button><button class="secondary" id="exportReport">Export summary CSV</button></div><div id="reportSummary"></div><div id="reportBreakdown"></div><p class="muted">Counts are based on saved dates; revenue totals include paid invoices only. This is an operational overview, not a statutory accounting or tax report.</p></div></section>
 <section id="presets" class="panel"><div class="card"><h2>Saved medication regimens</h2><p class="muted">Presets are shortcuts, not clinical recommendations. Check every dose, interaction, allergy and patient-specific adjustment.</p><div class="grid"><div><label>Medicine and strength</label><input id="mName"></div><div><label>Dose</label><input id="mDose"></div><div><label>Frequency</label><input id="mFreq"></div><div><label>Duration</label><input id="mDuration"></div></div><button id="saveMedPreset">Save medication preset</button><div id="medPresets"></div></div><div class="card"><h2>Saved lab investigations</h2><div class="row"><input id="lName" placeholder="Investigation name" style="flex:1"><button id="saveLabPreset">Save lab</button></div><div id="labPresets"></div></div></section>
 <section id="settings" class="panel"><div class="card"><h2>Clinic details</h2><label>Clinic name</label><input id="sClinic"><label>Doctor name and qualifications</label><input id="sDoctor"><label>Registration number</label><input id="sReg"><label>Address / contact</label><textarea id="sContact"></textarea><button id="saveSettings">Save clinic details</button></div><div class="card"><h2>Encrypted backup & recovery</h2><p class="muted">Exported backups are encrypted using AES-256-GCM and the same passphrase as this vault. Store backup files outside this iPad. Restore requires the backup's passphrase and replaces all records.</p><div class="actions"><button id="exportBackup">Export encrypted backup (.json)</button></div><label>Restore encrypted backup</label><input id="backupFile" type="file" accept=".json,application/json"><label>Passphrase used for this backup</label><input id="backupPass" type="password" autocomplete="off"><button class="danger" id="restoreBackup">Restore and replace local records</button><p id="backupStatus" class="muted"></p></div><div class="card"><h2>Emergency password recovery kit</h2><p class="warning">Create a new recovery kit after every clinic session or important record update. The kit is an encrypted snapshot, not a live recovery mechanism. Store the file and its recovery key separately, outside this iPad. Anyone with both can read the records in that snapshot.</p><button type="button" id="makeRecoveryKit">Generate recovery kit + key</button><div id="recoveryKitResult" class="hidden"><label>Recovery key — copy and store securely</label><textarea id="generatedRecoveryKey" readonly rows="3"></textarea><button class="secondary" type="button" id="copyRecoveryKey">Copy recovery key</button><p class="warning">Do not lose this key. The app cannot retrieve it later.</p></div></div><div class="card"><h2>Legacy app data</h2><p class="warning">The previous unencrypted Ai-techDoc app may still have plaintext records in Safari storage. This new vault does not automatically import or erase them. Remove old data only after independently verifying encrypted backups and migration.</p><p class="muted">No cloud sync, no telemetry, no external JavaScript libraries. One iPad only. Password recovery is possible only using a previously exported recovery kit and its separately stored key; it restores that snapshot, not later changes.</p></div></section>
@@ -232,16 +180,44 @@ function calculateInvoice(qty,rate,discount,tax){
  const subtotal=Math.round(qty*rate*100)/100,base=Math.max(0,Math.round((subtotal-discount)*100)/100),taxAmount=Math.round(base*tax)/100;
  return{subtotal,taxAmount,total:Math.round((base+taxAmount)*100)/100}
 }
+function billRows(){
+ return [...$('billRows').querySelectorAll('tr')].map(row=>({
+  category:row.querySelector('[data-bill-category]').value,
+  service:row.querySelector('[data-bill-service]').value.trim(),
+  qty:Number(row.querySelector('[data-bill-qty]').value),
+  rate:Number(row.querySelector('[data-bill-rate]').value)
+ }));
+}
+function calculateBillPreview(){
+ const rows=billRows(),discount=Number($('billDiscount').value)||0,tax=Number($('billTax').value)||0;
+ const subtotal=rows.reduce((sum,r)=>sum+(r.qty*r.rate),0),base=Math.max(0,subtotal-discount),taxAmount=base*tax/100;
+ $('billTotalPreview').value=currency(Math.round((base+taxAmount)*100)/100);
+}
+function addBillRow(category='Other charges',service='',qty=1,rate=''){
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td><select data-bill-category><option>Consultation fee</option><option>Procedure charges</option><option>Lab charges</option><option>Other charges</option></select></td><td><input data-bill-service placeholder="Description"></td><td><input data-bill-qty type="number" min="1" step="1" value="1"></td><td><input data-bill-rate type="number" min="0" step="0.01" placeholder="0.00"></td><td data-bill-amount>₹0.00</td><td><button type="button" class="danger" aria-label="Remove charge">×</button></td>`;
+ tr.querySelector('[data-bill-category]').value=category;
+ tr.querySelector('[data-bill-service]').value=service;
+ tr.querySelector('[data-bill-qty]').value=qty;
+ tr.querySelector('[data-bill-rate]').value=rate;
+ tr.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{tr.querySelector('[data-bill-amount]').textContent=currency((Number(tr.querySelector('[data-bill-qty]').value)||0)*(Number(tr.querySelector('[data-bill-rate]').value)||0));calculateBillPreview()}));
+ tr.querySelector('button').onclick=()=>{tr.remove();if(!$('billRows').children.length)addBillRow();calculateBillPreview()};
+ $('billRows').appendChild(tr);calculateBillPreview();
+}
+$('addBillRow').onclick=()=>addBillRow();
+$('billDiscount').addEventListener('input',calculateBillPreview);$('billTax').addEventListener('input',calculateBillPreview);
 $('saveInvoice').onclick=()=>guard(async()=>{
- const patientId=$('billPatient').value,date=$('billDate').value,service=$('billService').value.trim();
- const qty=Number($('billQty').value),rate=Number($('billRate').value),discount=Number($('billDiscount').value),tax=Number($('billTax').value);
- if(!person(patientId)||!date||!service||![qty,rate,discount,tax].every(Number.isFinite)||!Number.isInteger(qty)||qty<1||rate<0||discount<0||tax<0||tax>100||discount>qty*rate)throw Error('Check invoice patient, date, service, quantity, price, discount and tax');
- const serial=data.nextInvoiceSerial,totals=calculateInvoice(qty,rate,discount,tax);
- const invoice={id:crypto.randomUUID(),serial,number:'HB-INV-'+String(serial).padStart(6,'0'),patientId,date,service,qty,rate,discount,tax,...totals,status:$('billStatus').value,method:$('billMethod').value};
+ const patientId=$('billPatient').value,date=$('billDate').value,items=billRows();
+ const discount=Number($('billDiscount').value),tax=Number($('billTax').value);
+ const subtotal=items.reduce((sum,r)=>sum+r.qty*r.rate,0);
+ if(!person(patientId)||!date||!items.length||items.some(r=>!r.category||!r.service||!Number.isFinite(r.qty)||!Number.isInteger(r.qty)||r.qty<1||!Number.isFinite(r.rate)||r.rate<0)||![discount,tax].every(Number.isFinite)||discount<0||tax<0||tax>100||discount>subtotal)throw Error('Check invoice patient, date, each charge description, quantity, rate, discount and tax');
+ const totals=calculateInvoice(1,subtotal,discount,tax),serial=data.nextInvoiceSerial;
+ const invoice={id:crypto.randomUUID(),serial,number:'HB-INV-'+String(serial).padStart(6,'0'),patientId,date,items,service:items.map(x=>x.category+': '+x.service).join('; '),qty:1,rate:subtotal,discount,tax,...totals,status:$('billStatus').value,method:$('billMethod').value};
  data.invoices.push(invoice);data.nextInvoiceSerial++;
  try{await persist()}catch(e){data.invoices.pop();data.nextInvoiceSerial--;throw e}
  renderOperations();alert('Invoice '+invoice.number+' saved')
 });
+
 function renderInvoices(){
  $('invoiceList').innerHTML=[...data.invoices].sort((a,b)=>b.serial-a.serial).map(i=>`<div class="entry"><strong>${clean(i.number)}</strong> · ${clean(i.date)} · ${clean(person(i.patientId)?.name||'Unknown')} · ${currency(i.total)} · ${clean(i.status)}<div class="actions"><button type="button" data-invoice-print="${clean(i.id)}">Print invoice</button>${i.status==='Unpaid'?`<button type="button" class="secondary" data-invoice-paid="${clean(i.id)}">Mark paid</button>`:''}</div></div>`).join('')||'<p class="muted">No invoices yet.</p>';
  $('invoiceList').querySelectorAll('[data-invoice-print]').forEach(b=>b.onclick=()=>printInvoice(b.dataset.invoicePrint));
@@ -264,11 +240,13 @@ function downloadCSV(rows,name){const csv=rows.map(row=>row.map(v=>'"'+String(v?
 $('exportReport').onclick=()=>{const {r,revenue,outstanding}=runReports();downloadCSV([['Metric','Value'],['From',r.from],['To',r.to],['Consultations',r.visits.length],['New patients',r.newPatients.length],['Appointments',r.appointments.length],['Completed appointments',r.appointments.filter(a=>a.status==='Completed').length],['Paid revenue INR',revenue.toFixed(2)],['Outstanding INR',outstanding.toFixed(2)]],'healbay-summary-'+localDate()+'.csv')};
 function printInvoice(id){
  const i=data.invoices.find(x=>x.id===id),p=person(i?.patientId);if(!i||!p)return;
- const s=data.settings;
- $('printSheet').innerHTML=`<div class="rxhead"><img src="./heal-bay-logo.png" alt="Heal Bay logo"><div class="rxheadcenter"><div class="rxname">${clean(s.clinic||'Heal Bay')}</div><div>${clean(s.contact)}</div><strong>${clean(s.doctor)}</strong></div><div class="rxheadbalance"></div></div><h2 style="text-align:center">INVOICE</h2><div class="patient"><div><b>Invoice</b><br>${clean(i.number)}</div><div><b>Date</b><br>${clean(i.date)}</div><div><b>Patient</b><br>${clean(p.name)} (${clean(p.number)})</div></div><table><thead><tr><th>Service</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody><tr><td>${clean(i.service)}</td><td>${i.qty}</td><td>${currency(i.rate)}</td><td>${currency(i.subtotal)}</td></tr></tbody></table><div style="text-align:right">Subtotal: ${currency(i.subtotal)}<br>Discount: ${currency(i.discount)}<br>Tax (${i.tax}%): ${currency(i.taxAmount)}<h2>Total: ${currency(i.total)}</h2><b>Status: ${clean(i.status)}</b><br>Method: ${clean(i.method)}</div><footer>For ${clean(s.clinic||'Heal Bay')}<br>Authorized signature / stamp</footer>`;
+ const s=data.settings,items=Array.isArray(i.items)&&i.items.length?i.items:[{category:'Other charges',service:i.service||'Service',qty:i.qty||1,rate:i.rate||i.subtotal||0}];
+ const rows=items.map(item=>`<tr><td>${clean(item.category||'Other charges')}</td><td>${clean(item.service)}</td><td>${Number(item.qty)||1}</td><td>${currency(Number(item.rate)||0)}</td><td>${currency((Number(item.qty)||1)*(Number(item.rate)||0))}</td></tr>`).join('');
+ $('printSheet').classList.add('invoice-print');
+ $('printSheet').innerHTML=`<div class="rxhead"><img src="./heal-bay-logo.png" alt="Heal Bay logo"><div class="rxheadcenter"><div class="rxname">${clean(s.clinic||'Heal Bay')}</div><div>${clean(s.contact)}</div><strong>${clean(s.doctor)}</strong></div><div class="rxheadbalance"></div></div><h2 style="text-align:center">TAX / BILLING INVOICE</h2><div class="patient"><div><b>Invoice</b><br>${clean(i.number)}</div><div><b>Date</b><br>${clean(i.date)}</div><div><b>Patient</b><br>${clean(p.name)} (${clean(p.number)})</div></div><table><thead><tr><th>Category</th><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table><div class="invoice-totals">Subtotal: ${currency(i.subtotal)}<br>Discount: ${currency(i.discount)}<br>Tax (${i.tax}%): ${currency(i.taxAmount)}<div class="grand">Total: ${currency(i.total)}</div><b>Status: ${clean(i.status)}</b><br>Payment method: ${clean(i.method)}</div><footer>For ${clean(s.clinic||'Heal Bay')}<br>Authorized signature / stamp</footer>`;
  $('printOverlay').classList.remove('hidden');requestAnimationFrame(checkA5Fit);scrollTo(0,0)
 }
-$('apptDate').value=localDate();$('apptFilter').value=localDate();$('billDate').value=localDate();$('reportFrom').value=localDate().slice(0,7)+'-01';$('reportTo').value=localDate();
+addBillRow('Consultation fee','Consultation',1,'');$('apptDate').value=localDate();$('apptFilter').value=localDate();$('billDate').value=localDate();$('reportFrom').value=localDate().slice(0,7)+'-01';$('reportTo').value=localDate();
 
 function rxBlock(title,value){return String(value||'').trim()?`<div class="rxsection"><b>${title}</b>${clean(value)}</div>`:''}
 function printVisit(id){const v=data.visits.find(x=>x.id===id),p=data.patients.find(x=>x.id===v?.patientId);if(!v||!p)return;const s=data.settings;const meds=v.meds.map((m,i)=>`<tr><td>${i+1}. ${clean(m.name)}</td><td>${clean(m.dose)}</td><td>${clean(m.freq)}</td><td>${clean(m.duration)}</td></tr>`).join('');$('printSheet').innerHTML=`<div class="rxhead"><img src="./heal-bay-logo.png" alt="Heal Bay logo"><div class="rxheadcenter"><div class="rxname">${clean(s.clinic||'Heal Bay')}</div><div>${clean(s.contact)}</div><strong>${clean(s.doctor)}</strong><div>Medical registration: ${clean(s.reg)}</div></div><div class="rxheadbalance" aria-hidden="true"></div></div><div class="row" style="justify-content:space-between"><b>OUTPATIENT PRESCRIPTION</b><b>${clean(v.date)}</b></div><div class="patient"><div><small>Patient</small><br><strong>${clean(p.name)}</strong></div><div><small>ID</small><br>${clean(p.number)}</div><div><small>Age / Sex</small><br>${clean(p.age)} / ${clean(p.sex)}</div></div>${rxBlock('Allergies / alerts',p.allergies)}${rxBlock('Vitals',[v.bp&&'BP: '+v.bp,v.pulse&&'Pulse: '+v.pulse,v.temp&&'Temperature: '+v.temp,v.spo2&&'SpO₂: '+v.spo2,v.weight&&'Weight: '+v.weight].filter(Boolean).join(' · '))}${rxBlock('Chief complaints',v.complaints)}${rxBlock('Clinical findings',v.findings)}${rxBlock('Assessment / diagnosis',v.diagnosis)}<h2 style="font-family:Georgia,serif;color:#0e766e">℞</h2><table><thead><tr><th>Medicine / strength</th><th>Dose</th><th>Frequency</th><th>Duration</th></tr></thead><tbody>${meds||'<tr><td colspan="4">No medicines entered</td></tr>'}</tbody></table>${rxBlock('Investigations',v.labs.map(l=>l.test).join(' · '))}${rxBlock('Advice / follow-up',v.advice)}<footer>________________________<br><strong>${clean(s.doctor||'Treating clinician')}</strong><br>Signature / stamp</footer>`;$('printOverlay').classList.remove('hidden');requestAnimationFrame(checkA5Fit);scrollTo(0,0)}
